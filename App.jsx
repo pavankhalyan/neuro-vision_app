@@ -1,25 +1,25 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AmbulanceLoginScreen from './src/AmbulanceLoginScreen';
-import PoliceLoginScreen from './src/PoliceLoginScreen'; 
+import PoliceLoginScreen from './src/PoliceLoginScreen';
 
 const Stack = createStackNavigator();
 
 function HomeScreen({ navigation }) {
   return (
-    <View style={styles.container}> 
+    <View style={styles.container}>
       <Text style={styles.ask}>Are you a?</Text>
       <TouchableOpacity
         style={styles.buttoncontainer1}
-        onPress={() => navigation.navigate('AmbulanceDriver')}
+        onPress={() => navigation.navigate('Driver Details')}
       >
         <Text style={styles.driver}>Ambulance Driver</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={styles.buttoncontainer2}
-        onPress={() => navigation.navigate('TrafficPolice')}
+        onPress={() => navigation.navigate('Police Details')}
       >
         <Text style={styles.police}>Traffic Police</Text>
       </TouchableOpacity>
@@ -30,10 +30,15 @@ function HomeScreen({ navigation }) {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="AmbulanceDriver" component={AmbulanceLoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="TrafficPolice" component={PoliceLoginScreen} options={{ headerShown: false }}/>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          ...TransitionPresets.SlideFromRightIOS,
+        }}
+      >
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Driver Details" component={AmbulanceLoginScreen} />
+        <Stack.Screen name="Police Details" component={PoliceLoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
