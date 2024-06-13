@@ -4,6 +4,8 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import AmbulanceLoginScreen from './src/AmbulanceLoginScreen';
 import PoliceLoginScreen from './src/PoliceLoginScreen';
+import AmbulanceHomeScreen from './src/AmbulanceHomeScreen';
+import PoliceHomeScreen from './src/PoliceHomeScreen';
 
 const Stack = createStackNavigator();
 
@@ -36,9 +38,11 @@ export default function App() {
           ...TransitionPresets.SlideFromRightIOS,
         }}
       >
-        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Driver Details" component={AmbulanceLoginScreen} />
         <Stack.Screen name="Police Details" component={PoliceLoginScreen} />
+        <Stack.Screen name="AmbulanceHomeScreen" component={AmbulanceHomeScreen} />
+        <Stack.Screen name="PoliceHomeScreen" component={PoliceHomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
