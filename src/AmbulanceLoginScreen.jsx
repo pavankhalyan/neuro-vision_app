@@ -4,29 +4,30 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import RNPickerSelect from 'react-native-picker-select';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
-// Import the necessary navigation functions and hooks
 import { useNavigation } from '@react-navigation/native';
-import AmbulanceHomeScreen from './AmbulanceHomeScreen'; // Adjust the path as needed
 
 const validationSchema = Yup.object().shape({
   user: Yup.string().required('Name is required'),
   experience: Yup.string().required('Experience is required'),
   address: Yup.string().required('Address is required'),
-  mobile: Yup.string().required('Mobile number is required'),
+  mobile: Yup.string()
+  .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
+  .min(10, 'Mobile number must be at least 10 digits')
+  .max(15, 'Mobile number cannot be more than 15 digits')
+  .required('Mobile number is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
-  password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+  password: Yup.string()
+  .min(6, 'Password must be at least 6 characters') 
+  .max(15,'Password cannot be more than 15 characters')
+  .required('Password is required'),
 });
 
 const AmbulanceLoginScreen = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const navigation = useNavigation(); // Initialize navigation using the useNavigation hook
+  const navigation = useNavigation();
 
   const handleLoginPress = (values) => {
-    // Simulating a login action
     console.log('Logging in with values:', values);
-    // You can add your authentication logic here
-    // For demonstration purposes, let's log the values to console and show an alert
     Alert.alert(
       'Login Successful',
       'You have successfully logged in!',
@@ -41,7 +42,6 @@ const AmbulanceLoginScreen = () => {
   };
 
   const handleSignupPress = () => {
-    // Navigate to signup screen or implement signup logic here
     console.log('Navigating to signup screen or handling signup logic');
   };
 
@@ -165,7 +165,7 @@ const AmbulanceLoginScreen = () => {
               <Text style={styles.loginButtonText}>Login</Text>
             </TouchableOpacity>
             <Text style={styles.signupText} onPress={handleSignupPress}>
-              Don't have an account? Sign Up
+              Already Have an Account?.. Sign Up
             </Text>
           </View>
         </ScrollView>
@@ -173,7 +173,6 @@ const AmbulanceLoginScreen = () => {
     </Formik>
   );
 };
-
 
 export default AmbulanceLoginScreen;
 

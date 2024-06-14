@@ -1,13 +1,18 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 import AmbulanceLoginScreen from './src/AmbulanceLoginScreen';
 import PoliceLoginScreen from './src/PoliceLoginScreen';
 import AmbulanceHomeScreen from './src/AmbulanceHomeScreen';
 import PoliceHomeScreen from './src/PoliceHomeScreen';
+import AmbLocationScreen from './src/AmbLocationScreen';
+import ProfileAmbScreen from './src/ProfileAmbScreen';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator(); 
+const Tab = createBottomTabNavigator();
 
 function HomeScreen({ navigation }) {
   return (
@@ -29,6 +34,35 @@ function HomeScreen({ navigation }) {
   );
 }
 
+function AmbulanceTabs() {
+  return (
+    <Tab.Navigator
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+
+        if (route.name === 'Home') {
+          iconName = focused ? 'home' : 'home-outline';
+        } else if (route.name === 'Location') {
+          iconName = focused ? 'map' : 'map-outline';
+        } else if (route.name === 'Profile') {
+          iconName = focused ? 'person' : 'person-outline';
+        }
+
+        return <Icon name={iconName} size={size} color={color} />;
+      },
+      tabBarActiveTintColor: 'tomato',
+      tabBarInactiveTintColor: 'gray',
+      tabBarStyle: { display: 'flex' },
+    })}
+  >
+    <Tab.Screen name="Home" component={AmbulanceHomeScreen} />
+    <Tab.Screen name="Location" component={AmbLocationScreen} />
+    <Tab.Screen name="Profile" component={ProfileAmbScreen}/>
+  </Tab.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <NavigationContainer>
@@ -41,8 +75,8 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Driver Details" component={AmbulanceLoginScreen} />
         <Stack.Screen name="Police Details" component={PoliceLoginScreen} />
-        <Stack.Screen name="AmbulanceHomeScreen" component={AmbulanceHomeScreen} />
-        <Stack.Screen name="PoliceHomeScreen" component={PoliceHomeScreen} />
+        <Stack.Screen name="AmbulanceHomeScreen" component={AmbulanceTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="PoliceHomeScreen" component={PoliceHomeScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
