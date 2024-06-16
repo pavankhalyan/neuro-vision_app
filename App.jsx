@@ -10,6 +10,9 @@ import AmbulanceHomeScreen from './src/AmbulanceHomeScreen';
 import PoliceHomeScreen from './src/PoliceHomeScreen';
 import AmbLocationScreen from './src/AmbLocationScreen';
 import ProfileAmbScreen from './src/ProfileAmbScreen';
+import PoliceProfileScreen from './src/PoliceProfileScreen'; 
+import PoliceLocationScreen from './src/PoliceLocationScreen';
+
 
 const Stack = createStackNavigator(); 
 const Tab = createBottomTabNavigator();
@@ -37,29 +40,58 @@ function HomeScreen({ navigation }) {
 function AmbulanceTabs() {
   return (
     <Tab.Navigator
-    screenOptions={({ route }) => ({
-      tabBarIcon: ({ focused, color, size }) => {
-        let iconName;
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
 
-        if (route.name === 'Home') {
-          iconName = focused ? 'home' : 'home-outline';
-        } else if (route.name === 'Location') {
-          iconName = focused ? 'map' : 'map-outline';
-        } else if (route.name === 'Profile') {
-          iconName = focused ? 'person' : 'person-outline';
-        }
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Location') {
+            iconName = focused ? 'map' : 'map-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
 
-        return <Icon name={iconName} size={size} color={color} />;
-      },
-      tabBarActiveTintColor: 'tomato',
-      tabBarInactiveTintColor: 'gray',
-      tabBarStyle: { display: 'flex' },
-    })}
-  >
-    <Tab.Screen name="Home" component={AmbulanceHomeScreen} />
-    <Tab.Screen name="Location" component={AmbLocationScreen} />
-    <Tab.Screen name="Profile" component={ProfileAmbScreen}/>
-  </Tab.Navigator>
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: { display: 'flex' },
+      })}
+    >
+      <Tab.Screen name="Home" component={AmbulanceHomeScreen} />
+      <Tab.Screen name="Location" component={AmbLocationScreen} />
+      <Tab.Screen name="Profile" component={ProfileAmbScreen}/>
+    </Tab.Navigator>
+  );
+}
+
+function PoliceTabs() {
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+
+          if (route.name === 'Home') {
+            iconName = focused ? 'home' : 'home-outline';
+          } else if (route.name === 'Location') {
+            iconName = focused ? 'map' : 'map-outline';
+          } else if (route.name === 'Profile') {
+            iconName = focused ? 'person' : 'person-outline';
+          }
+
+          return <Icon name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'red',
+        tabBarInactiveTintColor: 'gray',
+        tabBarStyle: { display: 'flex' },
+      })}
+    >
+      <Tab.Screen name="Home" component={PoliceHomeScreen} />
+      <Tab.Screen name="Location" component={PoliceLocationScreen} />
+      <Tab.Screen name="Profile" component={PoliceProfileScreen}/>
+    </Tab.Navigator>
   );
 }
 
@@ -76,7 +108,7 @@ export default function App() {
         <Stack.Screen name="Driver Details" component={AmbulanceLoginScreen} />
         <Stack.Screen name="Police Details" component={PoliceLoginScreen} />
         <Stack.Screen name="AmbulanceHomeScreen" component={AmbulanceTabs} options={{ headerShown: false }} />
-        <Stack.Screen name="PoliceHomeScreen" component={PoliceHomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="PoliceHomeScreen" component={PoliceTabs} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
