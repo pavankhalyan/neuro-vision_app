@@ -12,7 +12,7 @@ import AmbLocationScreen from './src/AmbLocationScreen';
 import ProfileAmbScreen from './src/ProfileAmbScreen';
 import PoliceProfileScreen from './src/PoliceProfileScreen'; 
 import PoliceLocationScreen from './src/PoliceLocationScreen';
-
+import CivilianLoginScreen from './src/CivilianLoginScreen';
 
 const Stack = createStackNavigator(); 
 const Tab = createBottomTabNavigator();
@@ -32,6 +32,12 @@ function HomeScreen({ navigation }) {
         onPress={() => navigation.navigate('Police Details')}
       >
         <Text style={styles.police}>Traffic Police</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttoncontainer3}
+        onPress={() => navigation.navigate('CivilianLogin')}
+      >
+        <Text style={styles.police}>Civilian</Text>
       </TouchableOpacity>
     </View>
   );
@@ -107,6 +113,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Driver Details" component={AmbulanceLoginScreen} />
         <Stack.Screen name="Police Details" component={PoliceLoginScreen} />
+        <Stack.Screen name="CivilianLogin" component={CivilianLoginScreen} />
         <Stack.Screen name="AmbulanceHomeScreen" component={AmbulanceTabs} options={{ headerShown: false }} />
         <Stack.Screen name="PoliceHomeScreen" component={PoliceTabs} options={{ headerShown: false }} />
       </Stack.Navigator>
@@ -138,6 +145,15 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   buttoncontainer2: {
+    height: 50,
+    justifyContent: 'center',
+    backgroundColor: '#7a7676',
+    alignItems: 'center',
+    width: 250,
+    marginVertical: 20,
+    borderRadius: 18,
+  },
+  buttoncontainer3 : {
     height: 50,
     justifyContent: 'center',
     backgroundColor: '#7a7676',
